@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContractorQuote Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Left Panel - Input */
+        .input-panel {
+            padding: 40px;
+            background: var(--white);
+            overflow-y: auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .tagline {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+        
+        .input-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .finish-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        
+        .finish-chip {
+            padding: 10px 14px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .finish-chip:hover {
+            border-color: var(--primary);
+        }
+        
+        .finish-chip.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Right Panel - Quote */
+        .quote-panel {
+            padding: 40px;
+            background: #0f172a;
+            color: white;
+            overflow-y: auto;
+        }
+        
+        .quote-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .quote-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .quote-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .quote-badge {
+            background: var(--success);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .line-items {
+            margin-bottom: 30px;
+        }
+        
+        .line-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .line-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-name {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .item-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 4px;
+        }
+        
+        .item-price {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        
+        .totals {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        
+        .total-row.grand {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 10px;
+            padding-top: 16px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .action-btn.primary {
+            background: var(--success);
+            color: white;
+            border: none;
+        }
+        
+        .action-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Loading State */
+        .generating {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .generating.active {
+            display: block;
+        }
+        
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+        
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        @media (max-width: 900px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Input Panel -->
+        <div class="input-panel">
+            <div class="logo">
+                <div class="logo-icon">CQ</div>
+                <div>
+                    <div class="logo-text">ContractorQuote</div>
+                    <div class="tagline">AI-Powered Estimates in Seconds</div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Project Name</label>
+                <input type="text" id="projectName" placeholder="e.g., Smith Patio Renovation">
+            </div>
+            
+            <div class="input-group">
+                <label>Describe the Work (AI will parse automatically)</label>
+                <textarea id="workDescription" placeholder="e.g., Build 200 sqft concrete patio with stamped finish, demo old 100 sqft slab, include drainage, 6x6 foot deck with redwood"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>Location (for regional pricing)</label>
+                <select id="region">
+                    <option value="west">West Coast (CA, OR, WA)</option>
+                    <option value="southwest">Southwest (AZ, TX, NM)</option>
+                    <option value="mountain">Mountain (CO, UT, NV)</option>
+                    <option value="midwest">Midwest (IL, OH, MI)</option>
+                    <option value="east">East Coast (NY, PA, FL)</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label>Add Custom Finishes</label>
+                <div class="finish-options">
+                    <div class="finish-chip" data-finish="stamped">Stamped</div>
+                    <div class="finish-chip" data-finish="stained">Stained</div>
+                    <div class="finish-chip" data-finish="exposed">Exposed Agg</div>
+                    <div class="finish-chip" data-finish="polished">Polished</div>
+                    <div class="finish-chip" data-finish="sealed">Sealed</div>
+                    <div class="finish-chip" data-finish="colored">Colored</div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Markup %</label>
+                <input type="number" id="markup" value="25" min="0" max="100">
+            </div>
+            
+            <button class="generate-btn" onclick="generateQuote()">
+                <span>⚡</span> Generate Quote
+            </button>
+        </div>
+        
+        <!-- Quote Panel -->
+        <div class="quote-panel">
+            <div class="quote-header">
+                <div>
+                    <div class="quote-title">Quote</div>
+                    <div class="quote-date" id="quoteDate"></div>
+                </div>
+                <div class="quote-badge">DRAFT</div>
+            </div>
+            
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">📋</div>
+                <p>Enter project details and click Generate</p>
+            </div>
+            
+            <div class="generating" id="generating">
+                <div class="spinner"></div>
+                <p>Analyzing project...</p>
+            </div>
+            
+            <div id="quoteContent" style="display:none;">
+                <div class="line-items" id="lineItems"></div>
+                <div class="totals" id="totals"></div>
+                <div class="actions">
+                    <button class="action-btn primary" onclick="saveQuote()">💾 Save PDF</button>
+                    <button class="action-btn secondary" onclick="newQuote()">➕ New Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Set today's date
+        document.getElementById('quoteDate').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        
+        // Finish chip selection
+        document.querySelectorAll('.finish-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                chip.classList.toggle('selected');
+            });
+        });
+        
+        // Pricing database (simplified)
+        const pricing = {
+            concrete: {
+                demo: { name: 'Demolition', unit: 'sqft', rate: 8 },
+                patio: { name: 'Concrete Pour', unit: 'sqft', rate: 12 },
+                base: { name: 'Base Material', unit: 'sqft', rate: 2 },
+                rebar: { name: 'Rebar Reinforcement', unit: 'sqft', rate: 2 },
+                forms: { name: 'Forms & Setup', unit: 'sqft', rate: 3 },
+            },
+            deck: {
+                framing: { name: 'Deck Framing', unit: 'sqft', rate: 15 },
+                decking: { name: 'Decking Material', unit: 'sqft', rate: 18 },
+                railing: { name: 'Railing', unit: 'linear ft', rate: 45 },
+                stairs: { name: 'Stairs', unit: 'each', rate: 350 },
+            },
+            finish: {
+                stamped: { name: 'Stamped Finish', unit: 'sqft', rate: 4 },
+                stained: { name: 'Stain/Sealer', unit: 'sqft', rate: 3 },
+                exposed: { name: 'Exposed Aggregate', unit: 'sqft', rate: 6 },
+                polished: { name: 'Polished', unit: 'sqft', rate: 8 },
+                colored: { name: 'Integral Color', unit: 'sqft', rate: 2 },
+            },
+            labor: {
+                general: { name: 'Labor', unit: 'hour', rate: 65 },
+            }
+        };
+        
+        // Regional multipliers
+        const regionMultiplier = {
+            west: 1.2,
+            southwest: 1.0,
+            mountain: 1.05,
+            midwest: 0.95,
+            east: 1.15
+        };
+        
+        function parseDescription(text) {
+            const items = [];
+            const lower = text.toLowerCase();
+            
+            // Parse quantities
+            const sqftMatch = text.match(/(\d+)\s*(?:sqft|sq\.?\s*ft|square\s*feet?)/i);
+            const sqft = sqftMatch ? parseInt(sqftMatch[1]) : 100;
+            
+            const linearMatch = text.match(/(\d+)\s*(?:linear|ln\.?\s*ft|feet?)/i);
+            const linear = linearMatch ? parseInt(linearMatch[1]) : 0;
+            
+            const demoMatch = text.match(/demo(?:lition)?\s*(\d+)/i);
+            const hasDemo = /demo|tear|remove|rip/i.test(lower);
+            
+            const hasDeck = /deck|platform|porch/i.test(lower);
+            const hasDrainage = /drain|water|grading/i.test(lower);
+            
+            // Concrete items
+            if (/concrete|patio|slab|walkway|foundation/i.test(lower)) {
+                if (hasDemo || sqft > 50) {
+                    items.push({ category: 'Concrete', ...pricing.concrete.demo, qty: sqft });
+                }
+                items.push({ category: 'Concrete', ...pricing.concrete.patio, qty: sqft });
+                items.push({ category: 'Concrete', ...pricing.concrete.base, qty: sqft });
+                items.push({ category: 'Concrete', ...pricing.concrete.rebar, qty: sqft });
+                items.push({ category: 'Concrete', ...pricing.concrete.forms, qty: sqft });
+            }
+            
+            // Deck items
+            if (hasDeck) {
+                items.push({ category: 'Deck', ...pricing.deck.framing, qty: sqft });
+                items.push({ category: 'Deck', ...pricing.deck.decking, qty: sqft });
+                if (/railing|rail|banister/i.test(lower)) {
+                    items.push({ category: 'Deck', ...pricing.deck.railing, qty: linear || 20 });
+                }
+                if (/stairs?|\bsteps?\b/i.test(lower)) {
+                    items.push({ category: 'Deck', ...pricing.deck.stairs, qty: 1 });
+                }
+            }
+            
+            // Finish items (from selected chips)
+            document.querySelectorAll('.finish-chip.selected').forEach(chip => {
+                const finish = chip.dataset.finish;
+                if (pricing.finish[finish]) {
+                    items.push({ category: 'Finishes', ...pricing.finish[finish], qty: sqft });
+                }
+            });
+            
+            // Drainage
+            if (hasDrainage) {
+                items.push({ category: 'Site Work', name: 'Drainage System', unit: 'ls', rate: 600, qty: 1 });
+            }
+            
+            // Labor estimate (rough: 1 hour per 10 sqft)
+            const laborHours = Math.ceil(sqft / 10);
+            items.push({ category: 'Labor', ...pricing.labor.general, qty: laborHours });
+            
+            return items;
+        }
+        
+        function generateQuote() {
+            const projectName = document.getElementById('projectName').value || 'Unnamed Project';
+            const description = document.getElementById('workDescription').value;
+            const region = document.getElementById('region').value;
+            const markup = parseInt(document.getElementById('markup').value) || 25;
+            
+            if (!description) {
+                alert('Please describe the work');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('generating').classList.add('active');
+            document.getElementById('quoteContent').style.display = 'none';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                const items = parseDescription(description);
+                const regionMult = regionMultiplier[region];
+                
+                // Calculate line items
+                let subtotal = 0;
+                const lineItemsHtml = items.map(item => {
+                    const rawCost = item.rate * item.qty * regionMult;
+                    subtotal += rawCost;
+                    return `
+                        <div class="line-item">
+                            <div>
+                                <div class="item-category">${item.category}</div>
+                                <div class="item-name">${item.name} (${item.qty} ${item.unit})</div>
+                            </div>
+                            <div class="item-price">$${rawCost.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>
+                        </div>
+                    `;
+                }).join('');
+                
+                const overhead = subtotal * 0.15;
+                const profit = subtotal * (markup / 100);
+                const total = subtotal + overhead + profit;
+                
+                document.getElementById('lineItems').innerHTML = lineItemsHtml;
+                document.getElementById('totals').innerHTML = `
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span>$${subtotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Overhead (15%)</span>
+                        <span>$${overhead.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Markup (${markup}%)</span>
+                        <span>$${profit.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
+                    </div>
+                    <div class="total-row grand">
+                        <span>TOTAL</span>
+                        <span>$${total.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
+                    </div>
+                `;
+                
+                // Hide loading, show result
+                document.getElementById('generating').classList.remove('active');
+                document.getElementById('quoteContent').style.display = 'block';
+                
+            }, 1500);
+        }
+        
+        function saveQuote() {
+            alert('PDF export would open a print dialog. In production, this would generate a PDF!');
+            window.print();
+        }
+        
+        function newQuote() {
+            document.getElementById('projectName').value = '';
+            document.getElementById('workDescription').value = '';
+            document.getElementById('markup').value = '25';
+            document.querySelectorAll('.finish-chip').forEach(c => c.classList.remove('selected'));
+            
+            document.getElementById('quoteContent').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
