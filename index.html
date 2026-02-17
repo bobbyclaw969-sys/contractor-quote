@@ -10,6 +10,7 @@
         
         :root {
             --primary: #2563eb;
+            --primary-dark: #1d4ed8;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
@@ -35,13 +36,14 @@
             padding: 40px;
             background: white;
             overflow-y: auto;
+            max-height: 100vh;
         }
         
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
         
         .logo-icon {
@@ -62,7 +64,7 @@
         
         h2 { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--dark); }
         
-        .input-group { margin-bottom: 24px; }
+        .input-group { margin-bottom: 20px; }
         
         label { display: block; font-size: 14px; font-weight: 500; color: var(--gray); margin-bottom: 8px; }
         
@@ -79,6 +81,108 @@
             outline: none;
             border-color: var(--primary);
         }
+        
+        /* Photo Upload */
+        .photo-upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--light);
+        }
+        
+        .photo-upload-zone:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+        
+        .photo-upload-zone.dragover {
+            border-color: var(--primary);
+            background: #dbeafe;
+        }
+        
+        .upload-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+        
+        .upload-text {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .upload-text strong {
+            color: var(--primary);
+        }
+        
+        #photoInput {
+            display: none;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .photo-preview {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--light);
+        }
+        
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 24px;
+            height: 24px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 10px;
+            padding: 4px;
+            text-align: center;
+        }
+        
+        .ai-analysis {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #166534;
+            display: none;
+        }
+        
+        .ai-analysis.active { display: block; }
         
         .finish-options {
             display: grid;
@@ -109,7 +213,7 @@
         .generate-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
             border-radius: 12px;
@@ -121,6 +225,7 @@
             justify-content: center;
             gap: 10px;
             transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
         }
         
         .generate-btn:hover {
@@ -134,7 +239,7 @@
             border: 1px solid #fcd34d;
             border-radius: 12px;
             padding: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .rates-header {
@@ -146,11 +251,7 @@
         
         .rates-header h3 { font-size: 14px; color: #92400e; }
         
-        .rates-content {
-            display: none;
-            margin-top: 12px;
-        }
-        
+        .rates-content { display: none; margin-top: 12px; }
         .rates-content.open { display: block; }
         
         .rate-row {
@@ -162,7 +263,6 @@
         }
         
         .rate-row:last-child { border-bottom: none; }
-        
         .rate-label { font-size: 13px; color: #78350f; }
         
         .rate-input {
@@ -178,6 +278,7 @@
             background: #0f172a;
             color: white;
             overflow-y: auto;
+            max-height: 100vh;
         }
         
         .quote-header {
@@ -198,6 +299,10 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+        }
+        
+        .quote-badge.photo {
+            background: var(--warning);
         }
         
         .line-items { margin-bottom: 30px; }
@@ -290,6 +395,32 @@
             color: var(--gray);
         }
         
+        /* Photo Gallery in Quote */
+        .quote-photos {
+            margin-bottom: 20px;
+        }
+        
+        .quote-photos h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .quote-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+        
+        .quote-photo-grid img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
         @media (max-width: 900px) {
             .app-container { grid-template-columns: 1fr; }
         }
@@ -308,19 +439,35 @@
             </div>
             
             <div class="input-group">
+                <label>📸 Site Photos</label>
+                <div class="photo-upload-zone" id="uploadZone">
+                    <div class="upload-icon">📷</div>
+                    <div class="upload-text">
+                        <strong>Click to upload</strong> or drag & drop<br>
+                        JPG, PNG up to 10MB each
+                    </div>
+                </div>
+                <input type="file" id="photoInput" multiple accept="image/*">
+                <div class="photo-grid" id="photoGrid"></div>
+                <div class="ai-analysis" id="aiAnalysis">
+                    <strong>🤖 AI Analysis:</strong> <span id="analysisText">Analyzing photos...</span>
+                </div>
+            </div>
+            
+            <div class="input-group">
                 <label>Project Name</label>
                 <input type="text" id="projectName" placeholder="e.g., Smith Patio Renovation">
             </div>
             
             <div class="input-group">
                 <label>Describe the Work</label>
-                <textarea id="workDescription" placeholder="e.g., Build 200 sqft concrete patio with stamped finish, demo old 100 sqft slab"></textarea>
+                <textarea id="workDescription" placeholder="e.g., Build 200 sqft concrete patio with stamped finish, demo old slab"></textarea>
             </div>
             
             <div class="input-group">
                 <label>Location</label>
                 <select id="region" onchange="updateRegionLabel()">
-                    <option value="bayarea">🏔️ Bay Area / Santa Cruz, CA (High Cost)</option>
+                    <option value="bayarea">🏔️ Bay Area / Santa Cruz, CA</option>
                     <option value="west">West Coast (CA, OR, WA)</option>
                     <option value="southwest">Southwest (AZ, TX, NM)</option>
                     <option value="mountain">Mountain (CO, UT, NV)</option>
@@ -353,14 +500,13 @@
                         <input type="number" class="rate-input" id="rateDeck" value="18">
                     </div>
                     <div class="rate-row">
-                        <span class="rate-label">Stamped Finish ($/sqft)</span>
+                        <span class="rate-label">Stamped ($/sqft)</span>
                         <input type="number" class="rate-input" id="rateStamped" value="6">
                     </div>
                     <div class="rate-row">
-                        <span class="rate-label">Base Material ($/sqft)</span>
+                        <span class="rate-label">Base ($/sqft)</span>
                         <input type="number" class="rate-input" id="rateBase" value="3">
                     </div>
-                    <div style="margin-top:8px;font-size:11px;color:#78350f;">Rates auto-update for Bay Area</div>
                 </div>
             </div>
             
@@ -393,12 +539,12 @@
                     <div class="quote-title">Quote</div>
                     <div class="quote-date" id="quoteDate"></div>
                 </div>
-                <div class="quote-badge">DRAFT</div>
+                <div class="quote-badge" id="quoteBadge">DRAFT</div>
             </div>
             
             <div class="empty-state" id="emptyState">
                 <div style="font-size:48px;margin-bottom:16px;">📋</div>
-                <p>Enter project details and click Generate</p>
+                <p>Upload photos & describe work, then click Generate</p>
             </div>
             
             <div class="generating" id="generating">
@@ -407,6 +553,7 @@
             </div>
             
             <div id="quoteContent" style="display:none;">
+                <div class="quote-photos" id="quotePhotos"></div>
                 <div class="line-items" id="lineItems"></div>
                 <div class="totals" id="totals"></div>
                 <div class="actions">
@@ -418,10 +565,102 @@
     </div>
     
     <script>
+        // State
+        let photos = [];
+        
         // Set today's date
         document.getElementById('quoteDate').textContent = new Date().toLocaleDateString('en-US', {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
         });
+        
+        // Photo upload handling
+        const uploadZone = document.getElementById('uploadZone');
+        const photoInput = document.getElementById('photoInput');
+        
+        uploadZone.addEventListener('click', () => photoInput.click());
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        photoInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+        
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    photos.push({
+                        name: file.name,
+                        data: e.target.result
+                    });
+                    renderPhotos();
+                    analyzePhotos();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        function renderPhotos() {
+            const grid = document.getElementById('photoGrid');
+            grid.innerHTML = photos.map((p, i) => `
+                <div class="photo-preview">
+                    <img src="${p.data}" alt="Site photo">
+                    <button class="photo-remove" onclick="removePhoto(${i})">×</button>
+                </div>
+            `).join('');
+        }
+        
+        function removePhoto(index) {
+            photos.splice(index, 1);
+            renderPhotos();
+            analyzePhotos();
+        }
+        
+        // Simulated AI analysis (in production, this would call an AI API)
+        function analyzePhotos() {
+            const analysis = document.getElementById('aiAnalysis');
+            const text = document.getElementById('analysisText');
+            
+            if (photos.length === 0) {
+                analysis.classList.remove('active');
+                return;
+            }
+            
+            analysis.classList.add('active');
+            
+            // Simulated analysis based on photo count
+            const observations = [];
+            if (photos.length >= 1) observations.push("Site access confirmed");
+            if (photos.length >= 3) observations.push("Multiple angles captured");
+            if (photos.length >= 5) observations.push("Detailed documentation");
+            
+            // Random observations to simulate AI
+            const possibleNotes = [
+                "Concrete work visible - area appears level",
+                "Existing structure will require demo",
+                "Access looks adequate for equipment",
+                "Photos show good detail for estimate",
+                "Recommend measuring for exact sqft"
+            ];
+            
+            const randomNote = possibleNotes[Math.floor(Math.random() * possibleNotes.length)];
+            text.textContent = `${observations.join(', ')}. ${randomNote}`;
+        }
         
         // Finish chip selection
         document.querySelectorAll('.finish-chip').forEach(chip => {
@@ -447,11 +686,10 @@
         }
         
         function getBayAreaRates() {
-            // Bay Area / Santa Cruz - CURRENT 2026 rates
             return {
-                concrete: 16,      // High due to labor + material costs
+                concrete: 16,
                 demo: 12,
-                labor: 95,      // Union labor typically $85-120/hr
+                labor: 95,
                 deck: 22,
                 stamped: 8,
                 base: 4
@@ -462,7 +700,6 @@
             const items = [];
             const lower = text.toLowerCase();
             
-            // Get custom rates
             const rates = {
                 concrete: parseFloat(document.getElementById('rateConcrete').value) || 14,
                 demo: parseFloat(document.getElementById('rateDemo').value) || 10,
@@ -518,7 +755,7 @@
                 items.push({ category: 'Site Work', name: 'Drainage System', qty: 1, rate: 800 });
             }
             
-            // Labor (estimate: 1 hr per 20 sqft for concrete)
+            // Labor
             const laborHours = Math.ceil(sqft / 20);
             items.push({ category: 'Labor', name: 'Labor', qty: laborHours, rate: rates.labor });
             
@@ -529,8 +766,8 @@
             const description = document.getElementById('workDescription').value;
             const markup = parseInt(document.getElementById('markup').value) || 25;
             
-            if (!description) {
-                alert('Please describe the work');
+            if (!description && photos.length === 0) {
+                alert('Please add photos or describe the work');
                 return;
             }
             
@@ -539,7 +776,26 @@
             document.getElementById('quoteContent').style.display = 'none';
             
             setTimeout(() => {
-                const items = parseDescription(description);
+                // Show photos in quote if uploaded
+                const quotePhotos = document.getElementById('quotePhotos');
+                const badge = document.getElementById('quoteBadge');
+                
+                if (photos.length > 0) {
+                    quotePhotos.innerHTML = `
+                        <h4>📷 Site Photos (${photos.length})</h4>
+                        <div class="quote-photo-grid">
+                            ${photos.map(p => `<img src="${p.data}" alt="Site photo">`).join('')}
+                        </div>
+                    `;
+                    badge.classList.add('photo');
+                    badge.textContent = 'WITH PHOTOS';
+                } else {
+                    quotePhotos.innerHTML = '';
+                    badge.classList.remove('photo');
+                    badge.textContent = 'DRAFT';
+                }
+                
+                const items = parseDescription(description || "Photo-based estimate");
                 
                 let subtotal = 0;
                 const lineItemsHtml = items.map(item => {
@@ -575,14 +831,17 @@
         }
         
         function saveQuote() {
-            alert('In production, this would generate a PDF. For now, use Ctrl+P / Cmd+P to print to PDF!');
+            alert('In production, this would generate a PDF with photos. Use Ctrl+P / Cmd+P to print to PDF!');
         }
         
         function newQuote() {
+            photos = [];
             document.getElementById('projectName').value = '';
             document.getElementById('workDescription').value = '';
             document.getElementById('markup').value = '25';
             document.querySelectorAll('.finish-chip').forEach(c => c.classList.remove('selected'));
+            renderPhotos();
+            document.getElementById('aiAnalysis').classList.remove('active');
             document.getElementById('quoteContent').style.display = 'none';
             document.getElementById('emptyState').style.display = 'block';
         }
