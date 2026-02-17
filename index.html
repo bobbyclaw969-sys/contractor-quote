@@ -6,22 +6,16 @@
     <title>ContractorQuote Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --primary: #2563eb;
-            --primary-dark: #1d4ed8;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
             --dark: #1e293b;
             --gray: #64748b;
             --light: #f8fafc;
-            --white: #ffffff;
             --border: #e2e8f0;
         }
         
@@ -29,7 +23,6 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             min-height: 100vh;
-            color: var(--dark);
         }
         
         .app-container {
@@ -38,10 +31,9 @@
             min-height: 100vh;
         }
         
-        /* Left Panel - Input */
         .input-panel {
             padding: 40px;
-            background: var(--white);
+            background: white;
             overflow-y: auto;
         }
         
@@ -65,36 +57,14 @@
             font-size: 20px;
         }
         
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--dark);
-        }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--dark); }
+        .tagline { color: var(--gray); font-size: 14px; margin-top: 4px; }
         
-        .tagline {
-            color: var(--gray);
-            font-size: 14px;
-            margin-top: 4px;
-        }
+        h2 { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--dark); }
         
-        h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--dark);
-        }
+        .input-group { margin-bottom: 24px; }
         
-        .input-group {
-            margin-bottom: 24px;
-        }
-        
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray);
-            margin-bottom: 8px;
-        }
+        label { display: block; font-size: 14px; font-weight: 500; color: var(--gray); margin-bottom: 8px; }
         
         input, textarea, select {
             width: 100%;
@@ -103,17 +73,11 @@
             border-radius: 10px;
             font-size: 15px;
             font-family: inherit;
-            transition: border-color 0.2s;
         }
         
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary);
-        }
-        
-        textarea {
-            min-height: 120px;
-            resize: vertical;
         }
         
         .finish-options {
@@ -134,9 +98,7 @@
             transition: all 0.2s;
         }
         
-        .finish-chip:hover {
-            border-color: var(--primary);
-        }
+        .finish-chip:hover { border-color: var(--primary); }
         
         .finish-chip.selected {
             background: var(--primary);
@@ -147,7 +109,7 @@
         .generate-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
             color: white;
             border: none;
             border-radius: 12px;
@@ -166,7 +128,51 @@
             box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
         }
         
-        /* Right Panel - Quote */
+        /* Rates Section */
+        .rates-section {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .rates-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .rates-header h3 { font-size: 14px; color: #92400e; }
+        
+        .rates-content {
+            display: none;
+            margin-top: 12px;
+        }
+        
+        .rates-content.open { display: block; }
+        
+        .rate-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #fcd34d;
+        }
+        
+        .rate-row:last-child { border-bottom: none; }
+        
+        .rate-label { font-size: 13px; color: #78350f; }
+        
+        .rate-input {
+            width: 80px;
+            padding: 6px 10px;
+            font-size: 13px;
+            text-align: right;
+        }
+        
+        /* Quote Panel */
         .quote-panel {
             padding: 40px;
             background: #0f172a;
@@ -183,16 +189,8 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
-        .quote-title {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        
-        .quote-date {
-            color: var(--gray);
-            font-size: 14px;
-        }
-        
+        .quote-title { font-size: 28px; font-weight: 700; }
+        .quote-date { color: var(--gray); font-size: 14px; }
         .quote-badge {
             background: var(--success);
             color: white;
@@ -202,24 +200,13 @@
             font-weight: 600;
         }
         
-        .line-items {
-            margin-bottom: 30px;
-        }
+        .line-items { margin-bottom: 30px; }
         
         .line-item {
             display: flex;
             justify-content: space-between;
             padding: 14px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .line-item:last-child {
-            border-bottom: none;
-        }
-        
-        .item-name {
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
         }
         
         .item-category {
@@ -230,10 +217,8 @@
             margin-bottom: 4px;
         }
         
-        .item-price {
-            font-size: 15px;
-            font-weight: 600;
-        }
+        .item-name { font-size: 14px; color: rgba(255,255,255,0.8); }
+        .item-price { font-size: 15px; font-weight: 600; }
         
         .totals {
             background: rgba(255,255,255,0.05);
@@ -274,35 +259,18 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s;
         }
         
-        .action-btn.primary {
-            background: var(--success);
-            color: white;
-            border: none;
-        }
+        .action-btn.primary { background: var(--success); color: white; border: none; }
+        .action-btn.secondary { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.2); }
         
-        .action-btn.secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        /* Loading State */
         .generating {
             display: none;
             text-align: center;
             padding: 40px;
         }
         
-        .generating.active {
-            display: block;
-        }
+        .generating.active { display: block; }
         
         .spinner {
             width: 48px;
@@ -314,9 +282,7 @@
             margin: 0 auto 20px;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         
         .empty-state {
             text-align: center;
@@ -324,15 +290,8 @@
             color: var(--gray);
         }
         
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-        
         @media (max-width: 900px) {
-            .app-container {
-                grid-template-columns: 1fr;
-            }
+            .app-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -354,19 +313,55 @@
             </div>
             
             <div class="input-group">
-                <label>Describe the Work (AI will parse automatically)</label>
-                <textarea id="workDescription" placeholder="e.g., Build 200 sqft concrete patio with stamped finish, demo old 100 sqft slab, include drainage, 6x6 foot deck with redwood"></textarea>
+                <label>Describe the Work</label>
+                <textarea id="workDescription" placeholder="e.g., Build 200 sqft concrete patio with stamped finish, demo old 100 sqft slab"></textarea>
             </div>
             
             <div class="input-group">
-                <label>Location (for regional pricing)</label>
-                <select id="region">
+                <label>Location</label>
+                <select id="region" onchange="updateRegionLabel()">
+                    <option value="bayarea">🏔️ Bay Area / Santa Cruz, CA (High Cost)</option>
                     <option value="west">West Coast (CA, OR, WA)</option>
                     <option value="southwest">Southwest (AZ, TX, NM)</option>
                     <option value="mountain">Mountain (CO, UT, NV)</option>
                     <option value="midwest">Midwest (IL, OH, MI)</option>
                     <option value="east">East Coast (NY, PA, FL)</option>
                 </select>
+            </div>
+            
+            <!-- Editable Rates -->
+            <div class="rates-section">
+                <div class="rates-header" onclick="toggleRates()">
+                    <h3>⚙️ Edit Pricing Rates</h3>
+                    <span>▼</span>
+                </div>
+                <div class="rates-content" id="ratesContent">
+                    <div class="rate-row">
+                        <span class="rate-label">Concrete ($/sqft)</span>
+                        <input type="number" class="rate-input" id="rateConcrete" value="14">
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-label">Demo ($/sqft)</span>
+                        <input type="number" class="rate-input" id="rateDemo" value="10">
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-label">Labor ($/hr)</span>
+                        <input type="number" class="rate-input" id="rateLabor" value="85">
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-label">Deck Framing ($/sqft)</span>
+                        <input type="number" class="rate-input" id="rateDeck" value="18">
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-label">Stamped Finish ($/sqft)</span>
+                        <input type="number" class="rate-input" id="rateStamped" value="6">
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-label">Base Material ($/sqft)</span>
+                        <input type="number" class="rate-input" id="rateBase" value="3">
+                    </div>
+                    <div style="margin-top:8px;font-size:11px;color:#78350f;">Rates auto-update for Bay Area</div>
+                </div>
             </div>
             
             <div class="input-group">
@@ -402,7 +397,7 @@
             </div>
             
             <div class="empty-state" id="emptyState">
-                <div class="empty-icon">📋</div>
+                <div style="font-size:48px;margin-bottom:16px;">📋</div>
                 <p>Enter project details and click Generate</p>
             </div>
             
@@ -430,111 +425,108 @@
         
         // Finish chip selection
         document.querySelectorAll('.finish-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                chip.classList.toggle('selected');
-            });
+            chip.addEventListener('click', () => chip.classList.toggle('selected'));
         });
         
-        // Pricing database (simplified)
-        const pricing = {
-            concrete: {
-                demo: { name: 'Demolition', unit: 'sqft', rate: 8 },
-                patio: { name: 'Concrete Pour', unit: 'sqft', rate: 12 },
-                base: { name: 'Base Material', unit: 'sqft', rate: 2 },
-                rebar: { name: 'Rebar Reinforcement', unit: 'sqft', rate: 2 },
-                forms: { name: 'Forms & Setup', unit: 'sqft', rate: 3 },
-            },
-            deck: {
-                framing: { name: 'Deck Framing', unit: 'sqft', rate: 15 },
-                decking: { name: 'Decking Material', unit: 'sqft', rate: 18 },
-                railing: { name: 'Railing', unit: 'linear ft', rate: 45 },
-                stairs: { name: 'Stairs', unit: 'each', rate: 350 },
-            },
-            finish: {
-                stamped: { name: 'Stamped Finish', unit: 'sqft', rate: 4 },
-                stained: { name: 'Stain/Sealer', unit: 'sqft', rate: 3 },
-                exposed: { name: 'Exposed Aggregate', unit: 'sqft', rate: 6 },
-                polished: { name: 'Polished', unit: 'sqft', rate: 8 },
-                colored: { name: 'Integral Color', unit: 'sqft', rate: 2 },
-            },
-            labor: {
-                general: { name: 'Labor', unit: 'hour', rate: 65 },
-            }
-        };
+        function toggleRates() {
+            document.getElementById('ratesContent').classList.toggle('open');
+        }
         
-        // Regional multipliers
-        const regionMultiplier = {
-            west: 1.2,
-            southwest: 1.0,
-            mountain: 1.05,
-            midwest: 0.95,
-            east: 1.15
-        };
+        function updateRegionLabel() {
+            const region = document.getElementById('region').value;
+            const rates = getBayAreaRates();
+            
+            if (region === 'bayarea') {
+                document.getElementById('rateConcrete').value = rates.concrete;
+                document.getElementById('rateDemo').value = rates.demo;
+                document.getElementById('rateLabor').value = rates.labor;
+                document.getElementById('rateDeck').value = rates.deck;
+                document.getElementById('rateStamped').value = rates.stamped;
+                document.getElementById('rateBase').value = rates.base;
+            }
+        }
+        
+        function getBayAreaRates() {
+            // Bay Area / Santa Cruz - CURRENT 2026 rates
+            return {
+                concrete: 16,      // High due to labor + material costs
+                demo: 12,
+                labor: 95,      // Union labor typically $85-120/hr
+                deck: 22,
+                stamped: 8,
+                base: 4
+            };
+        }
         
         function parseDescription(text) {
             const items = [];
             const lower = text.toLowerCase();
             
+            // Get custom rates
+            const rates = {
+                concrete: parseFloat(document.getElementById('rateConcrete').value) || 14,
+                demo: parseFloat(document.getElementById('rateDemo').value) || 10,
+                labor: parseFloat(document.getElementById('rateLabor').value) || 85,
+                deck: parseFloat(document.getElementById('rateDeck').value) || 18,
+                stamped: parseFloat(document.getElementById('rateStamped').value) || 6,
+                base: parseFloat(document.getElementById('rateBase').value) || 3,
+            };
+            
             // Parse quantities
             const sqftMatch = text.match(/(\d+)\s*(?:sqft|sq\.?\s*ft|square\s*feet?)/i);
             const sqft = sqftMatch ? parseInt(sqftMatch[1]) : 100;
             
-            const linearMatch = text.match(/(\d+)\s*(?:linear|ln\.?\s*ft|feet?)/i);
-            const linear = linearMatch ? parseInt(linearMatch[1]) : 0;
-            
-            const demoMatch = text.match(/demo(?:lition)?\s*(\d+)/i);
             const hasDemo = /demo|tear|remove|rip/i.test(lower);
-            
             const hasDeck = /deck|platform|porch/i.test(lower);
-            const hasDrainage = /drain|water|grading/i.test(lower);
+            const hasDrainage = /drain|water/i.test(lower);
             
             // Concrete items
             if (/concrete|patio|slab|walkway|foundation/i.test(lower)) {
                 if (hasDemo || sqft > 50) {
-                    items.push({ category: 'Concrete', ...pricing.concrete.demo, qty: sqft });
+                    items.push({ category: 'Concrete', name: 'Demolition', qty: sqft, rate: rates.demo });
                 }
-                items.push({ category: 'Concrete', ...pricing.concrete.patio, qty: sqft });
-                items.push({ category: 'Concrete', ...pricing.concrete.base, qty: sqft });
-                items.push({ category: 'Concrete', ...pricing.concrete.rebar, qty: sqft });
-                items.push({ category: 'Concrete', ...pricing.concrete.forms, qty: sqft });
+                items.push({ category: 'Concrete', name: 'Concrete Pour', qty: sqft, rate: rates.concrete });
+                items.push({ category: 'Concrete', name: 'Base Material', qty: sqft, rate: rates.base });
+                items.push({ category: 'Concrete', name: 'Rebar', qty: sqft, rate: 3 });
+                items.push({ category: 'Concrete', name: 'Forms & Setup', qty: sqft, rate: 4 });
             }
             
             // Deck items
             if (hasDeck) {
-                items.push({ category: 'Deck', ...pricing.deck.framing, qty: sqft });
-                items.push({ category: 'Deck', ...pricing.deck.decking, qty: sqft });
-                if (/railing|rail|banister/i.test(lower)) {
-                    items.push({ category: 'Deck', ...pricing.deck.railing, qty: linear || 20 });
-                }
-                if (/stairs?|\bsteps?\b/i.test(lower)) {
-                    items.push({ category: 'Deck', ...pricing.deck.stairs, qty: 1 });
-                }
+                items.push({ category: 'Deck', name: 'Framing', qty: sqft, rate: rates.deck });
+                items.push({ category: 'Deck', name: 'Decking', qty: sqft, rate: rates.deck + 5 });
             }
             
-            // Finish items (from selected chips)
+            // Finish items
             document.querySelectorAll('.finish-chip.selected').forEach(chip => {
                 const finish = chip.dataset.finish;
-                if (pricing.finish[finish]) {
-                    items.push({ category: 'Finishes', ...pricing.finish[finish], qty: sqft });
+                const finishRates = {
+                    stamped: rates.stamped,
+                    stained: 4,
+                    exposed: 8,
+                    polished: 10,
+                    colored: 3,
+                    sealed: 2
+                };
+                if (finishRates[finish]) {
+                    items.push({ category: 'Finishes', name: chip.textContent, qty: sqft, rate: finishRates[finish] });
                 }
             });
             
             // Drainage
             if (hasDrainage) {
-                items.push({ category: 'Site Work', name: 'Drainage System', unit: 'ls', rate: 600, qty: 1 });
+                items.push({ category: 'Site Work', name: 'Drainage System', qty: 1, rate: 800 });
             }
             
-            // Labor estimate (rough: 1 hour per 10 sqft)
-            const laborHours = Math.ceil(sqft / 10);
-            items.push({ category: 'Labor', ...pricing.labor.general, qty: laborHours });
+            // Labor (estimate: 1 hr per 20 sqft for concrete)
+            const laborHours = Math.ceil(sqft / 20);
+            items.push({ category: 'Labor', name: 'Labor', qty: laborHours, rate: rates.labor });
             
             return items;
         }
         
         function generateQuote() {
-            const projectName = document.getElementById('projectName').value || 'Unnamed Project';
             const description = document.getElementById('workDescription').value;
-            const region = document.getElementById('region').value;
             const markup = parseInt(document.getElementById('markup').value) || 25;
             
             if (!description) {
@@ -542,28 +534,24 @@
                 return;
             }
             
-            // Show loading
             document.getElementById('emptyState').style.display = 'none';
             document.getElementById('generating').classList.add('active');
             document.getElementById('quoteContent').style.display = 'none';
             
-            // Simulate AI processing
             setTimeout(() => {
                 const items = parseDescription(description);
-                const regionMult = regionMultiplier[region];
                 
-                // Calculate line items
                 let subtotal = 0;
                 const lineItemsHtml = items.map(item => {
-                    const rawCost = item.rate * item.qty * regionMult;
-                    subtotal += rawCost;
+                    const cost = item.rate * item.qty;
+                    subtotal += cost;
                     return `
                         <div class="line-item">
                             <div>
                                 <div class="item-category">${item.category}</div>
-                                <div class="item-name">${item.name} (${item.qty} ${item.unit})</div>
+                                <div class="item-name">${item.name} (${item.qty})</div>
                             </div>
-                            <div class="item-price">$${rawCost.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>
+                            <div class="item-price">$${cost.toLocaleString()}</div>
                         </div>
                     `;
                 }).join('');
@@ -574,25 +562,12 @@
                 
                 document.getElementById('lineItems').innerHTML = lineItemsHtml;
                 document.getElementById('totals').innerHTML = `
-                    <div class="total-row">
-                        <span>Subtotal</span>
-                        <span>$${subtotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
-                    </div>
-                    <div class="total-row">
-                        <span>Overhead (15%)</span>
-                        <span>$${overhead.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
-                    </div>
-                    <div class="total-row">
-                        <span>Markup (${markup}%)</span>
-                        <span>$${profit.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
-                    </div>
-                    <div class="total-row grand">
-                        <span>TOTAL</span>
-                        <span>$${total.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
-                    </div>
+                    <div class="total-row"><span>Subtotal</span><span>$${subtotal.toLocaleString()}</span></div>
+                    <div class="total-row"><span>Overhead (15%)</span><span>$${overhead.toLocaleString()}</span></div>
+                    <div class="total-row"><span>Markup (${markup}%)</span><span>$${profit.toLocaleString()}</span></div>
+                    <div class="total-row grand"><span>TOTAL</span><span>$${total.toLocaleString()}</span></div>
                 `;
                 
-                // Hide loading, show result
                 document.getElementById('generating').classList.remove('active');
                 document.getElementById('quoteContent').style.display = 'block';
                 
@@ -600,8 +575,7 @@
         }
         
         function saveQuote() {
-            alert('PDF export would open a print dialog. In production, this would generate a PDF!');
-            window.print();
+            alert('In production, this would generate a PDF. For now, use Ctrl+P / Cmd+P to print to PDF!');
         }
         
         function newQuote() {
@@ -609,10 +583,12 @@
             document.getElementById('workDescription').value = '';
             document.getElementById('markup').value = '25';
             document.querySelectorAll('.finish-chip').forEach(c => c.classList.remove('selected'));
-            
             document.getElementById('quoteContent').style.display = 'none';
             document.getElementById('emptyState').style.display = 'block';
         }
+        
+        // Initialize Bay Area rates
+        updateRegionLabel();
     </script>
 </body>
 </html>
